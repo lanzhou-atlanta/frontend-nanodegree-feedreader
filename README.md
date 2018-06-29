@@ -8,7 +8,7 @@ https://jasmine.github.io/
 2. run at github pages: https://lanzhou-atlanta.github.io/frontend-nanodegree-feedreader/#
 
 ## Tests implementation
-1. a test suite "RSS feed"
+1. a test suite "RSS Feeds"
 - a spec to test allFeed array is defined and not empty;
 - a spec that loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.
 - a spec that loops through each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.
