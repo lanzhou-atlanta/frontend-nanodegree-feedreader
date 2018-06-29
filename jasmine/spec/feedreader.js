@@ -22,51 +22,119 @@ $(function() {
          * page?
          */
         it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
+            //console.log("log test");
+            try {
+                expect(allFeeds).toBeDefined(); 
+               // expect(index<allFeeds.length).toBe(true);
+               // expect(index>=0).toBe(true);
+                expect(allFeeds.length).not.toBe(0);
+            } catch (e) {
+                console.log(e);
+            }
         });
+
+
+
+          
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('url defined and not empty', function() {
+            for (var i=0; i < allFeeds.length; i++) {
+                var url = allFeeds[i].url
+                expect(url).toBeDefined();
+                expect(typeof url === 'string').toBe(true);
+                //expect(url).not.toBe('');
+                expect(url.length).not.toBe(0);
 
+            }
+        });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('name defined and not empty', function() {
+            for (var i=0; i < allFeeds.length; i++) {
+                var name = allFeeds[i].name;
+                expect(name).toBeDefined();
+                expect(typeof name === 'string').toBe(true);
+                //expect(name).not.toBe('');
+                expect(name.length).not.toBe(0);
+
+            }
+        });
+
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
+    describe('The menu', function() {
 
+        //loadFeed(0);
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+        it('menu element is hidden by default', function() {
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+        });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+        it('menu appears and disappears upon click', function() {
+            menuIcon = $('.menu-icon-link');
+            
+            menuIcon.click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+       
+            menuIcon.click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+            
+        });
+    });    
 
     /* TODO: Write a new test suite named "Initial Entries" */
-
+    describe('Initial Entries', function() {
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
+        
+        it('at lease a single entry element', function() {
+            var entry = $('.feed .entry');
+            expect(entry.length >=0).toBe(true);
+        });
+        
+    });
     /* TODO: Write a new test suite named "New Feed Selection" */
-
+    describe('New Feed Selection', function() {
+        var initialContent;
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                initialContent = $('.feed').html();
+                loadFeed(1, done);
+            });
+        });
+
+        it('new content after new feed is loaded', function() {
+            expect($('.feed').html()).not.toBe(initialContent);
+        });
+    });
 }());

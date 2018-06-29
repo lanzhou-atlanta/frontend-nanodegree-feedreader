@@ -7,7 +7,8 @@
  */
 
 // The names and URLs to all of the feeds we'd like available.
-var allFeeds = [
+
+var allFeeds= [
     {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feed'
@@ -27,6 +28,7 @@ var allFeeds = [
  * Reader API is loaded asynchonously and will then call this
  * function when the API is loaded.
  */
+//var index = 2;
 function init() {
     // Load the first feed we've defined (index of 0).
     loadFeed(0);
